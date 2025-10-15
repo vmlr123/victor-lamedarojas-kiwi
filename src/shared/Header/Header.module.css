@@ -35,3 +35,18 @@ img {
 .spacer {
   margin-left: auto;
 }
+
+@media screen and (max-width: 600px) {
+  nav {
+    list-style: none;
+    margin: 0;
+  }
+  .spacer {
+    justify-content: center;
+    margin: 0;
+  }
+  img {
+    display: none;
+    margin: 0;
+  }
+}

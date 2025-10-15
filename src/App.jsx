@@ -16,6 +16,7 @@ function App() {
   return (
     <Container>
       <Header />
+      <div style={{ margin: "2rem" }}></div>
       <Routes>
         <Route path="/" element={<Survey username={username} />} />
         <Route path="/about" element={<About />} />

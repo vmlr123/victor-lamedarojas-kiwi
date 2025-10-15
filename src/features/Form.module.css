@@ -4,6 +4,7 @@ form {
   gap: 1rem;
   margin: 0 auto;
   align-items: center;
+  width: 100%;
 }
 
 label {
@@ -30,7 +31,7 @@ select {
 }
 
 .projectDetails {
-  width: 80%;
+  width: 50%;
 }
 
 button {
@@ -59,4 +60,16 @@ textarea:focus-visible {
 .loginMessage {
   font-style: italic;
   color: #ff0000;
+}
+
+@media (max-width: 600px) {
+  .personalInfo,
+  .projectDetails {
+    width: 100%;
+  }
+  input,
+  textarea,
+  select {
+    width: 90%;
+  }
 }

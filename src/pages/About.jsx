@@ -5,10 +5,9 @@ export default function About() {
     <>
       <h2>What I do</h2>
       <p className={styles.text}>
-        My name is Victor Lameda Rojas or and I create custom websites tailored
-        to your needs, whether you're an individual, a small business, or a
-        large enterprise. I will work closely with you to bring your vision to
-        life.
+        My name is Victor Lameda Rojas and I create custom websites tailored to
+        your needs, whether you're an individual, a small business, or a large
+        enterprise. I will work closely with you to bring your vision to life.
       </p>
       <h2>My Mission</h2>
       <p className={styles.text}>
