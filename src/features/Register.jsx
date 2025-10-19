@@ -30,22 +30,26 @@ export default function Register() {
     if (!username || !password || !repeatPassword) {
       setMessage("All fields are required.");
       setMessageType("error");
+      setIsRegistering(false);
       return false;
     }
     if (password.length < 8) {
       setMessage("Password must be at least 8 characters.");
       setMessageType("error");
+      setIsRegistering(false);
       return false;
     }
     if (password !== repeatPassword) {
       setMessage("Passwords do not match.");
       setMessageType("error");
+      setIsRegistering(false);
       return false;
     }
     const existing = loadStoredUsers();
     if (existing.find((u) => u.username === username)) {
       setMessage("Username already taken.");
       setMessageType("error");
+      setIsRegistering(false);
       return false;
     }
     return true;
