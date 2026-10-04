@@ -34,6 +34,17 @@ export default function PreviousSubmissions({ username, isLoggedIn }) {
     }
   }, [username, isLoggedIn, isAdminView]);
 
+  // Determine whether the current user has any submissions (used to enable/disable Clear)
+  const hasOwnSubmissions = (() => {
+    try {
+      const raw = localStorage.getItem("submissions") || "[]";
+      const all = JSON.parse(raw);
+      return all.some((s) => s.submittedBy === username);
+    } catch {
+      return false;
+    }
+  })();
+
   function clearSubmissions() {
     try {
       setIsClearing(true);
@@ -92,18 +103,13 @@ export default function PreviousSubmissions({ username, isLoggedIn }) {
       <h2>Previous Submissions</h2>
       {!isLoggedIn ? (
         <p>Please log in to view your previous submissions.</p>
-      ) : isLoading ? (
-        <p role="status" aria-live="polite">
-          Loading submissions...
-        </p>
-      ) : loadError ? (
-        <p role="alert">{loadError}</p>
-      ) : submissions.length === 0 ? (
-        <p>No previous submissions found for {username}.</p>
       ) : (
         <>
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-            <button onClick={clearSubmissions} disabled={isClearing}>
+            <button
+              onClick={clearSubmissions}
+              disabled={isClearing || !hasOwnSubmissions}
+            >
               {isClearing ? "Clearing..." : "Clear My Submissions"}
             </button>
             {isLoggedIn && isDefaultUser(username) && (
@@ -112,18 +118,29 @@ export default function PreviousSubmissions({ username, isLoggedIn }) {
               </button>
             )}
           </div>
-          <ul className={styles.submissions}>
-            {submissions.map((s) => (
-              <SubmissionItem
-                key={s.id}
-                s={s}
-                deletingId={deletingId}
-                canEdit={s.submittedBy === username}
-                onDelete={() => deleteSubmission(s.id)}
-                onUpdate={(patch) => updateSubmission(s.id, patch)}
-              />
-            ))}
-          </ul>
+
+          {isLoading ? (
+            <p role="status" aria-live="polite">
+              Loading submissions...
+            </p>
+          ) : loadError ? (
+            <p role="alert">{loadError}</p>
+          ) : submissions.length === 0 ? (
+            <p>No previous submissions found for {username}.</p>
+          ) : (
+            <ul className={styles.submissions}>
+              {submissions.map((s) => (
+                <SubmissionItem
+                  key={s.id}
+                  s={s}
+                  deletingId={deletingId}
+                  canEdit={s.submittedBy === username}
+                  onDelete={() => deleteSubmission(s.id)}
+                  onUpdate={(patch) => updateSubmission(s.id, patch)}
+                />
+              ))}
+            </ul>
+          )}
         </>
       )}
     </>
