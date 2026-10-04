@@ -1,13 +1,17 @@
 import { NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
-import logo from "../../../public/7020109.png";
 
 function Header() {
   return (
     <>
       <nav>
         <NavLink to={"/"}>
-          <img src={logo} alt="Kiwi project logo" width="50" height="50" />
+          <img
+            src={`${import.meta.env.BASE_URL}/7020109.png`}
+            alt="Kiwi project logo"
+            width="50"
+            height="50"
+          />
         </NavLink>
         <div className={styles.spacer}>
           <NavLink
